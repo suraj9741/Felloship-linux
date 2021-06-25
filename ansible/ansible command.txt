@@ -1,0 +1,31 @@
+sudo apt update
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt update
+sudo apt-get upgrade
+	git python python-level python-pip openssl ansible
+sudo apt-get install git python3-pip openssl
+nano /etc/ansible/hosts
+	[demo]
+	10.0.0.187
+	10.0.0.226
+nano /etc/ansible/ansible.cfg
+	inventory      = /etc/ansible/hosts
+	sudo_user      = root
+adduser ansible
+	passwd:1234
+visudo
+	ansible ALL=(ALL:ALL) NOPASSWD: ALL
+nano /etc/ssh/sshd_config
+	PermitRootLogin prohibit-password /yes
+	PasswordAuthentication yes
+service sshd restart
+	ssh 10.0.0.187
+ssh-keygen
+cd .ssh/
+ssh-copy-id ansible@10.0.0.187
+ssh-copy-id ansible@10.0.0.226
+ansible all --list-hosts
+ansible demo -a "ls -al"
+ansible demo -a "touch test"
+vi task.yml
+

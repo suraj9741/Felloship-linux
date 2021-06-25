@@ -1,0 +1,11 @@
+#docker
+docker run -it --name suraj -v "/var/run/docker.sock:/var/run/docker.sock" ubuntu:18.04 /bin/bash
+
+apt-get -y install docker.io
+apt-get install     apt-transport-https     ca-certificates     curl     gnupg-agent     software-properties-common
+
+docker cp .kube 9620902cdc2b:/
+
+docker login --username=suraj9741 --password="Suraj@123"
+docker tag backend:latest suraj9741/backend:latest
+docker push suraj9741/backend:latest

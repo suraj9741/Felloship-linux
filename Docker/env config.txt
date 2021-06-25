@@ -1,0 +1,17 @@
+${NAME}=Django
+${USER}=RDSdatabse
+${PASSWORD}=12345678
+${HOST}=rdsdatabse.c8s0mxywtk7m.us-east-2.rds.amazonaws.com
+${PORT}=5432
+
+os.environ.get('NAME')
+os.environ.get('USER')
+os.environ.get('PASSWORD')
+os.environ.get('HOST')
+os.environ.get('PORT')
+import os
+host,username,password,auth,database=os.environ.get('MG_HOST'),os.environ.get('MG_USER'),os.environ.get('MG_PASS'),os.environ.get('MG_AUTH'),os.environ.get('MG_DB'
+
+docker run -d -p 9000:8000 -e NAME=Django -e USER=RDSdatabse -e PASSWORD=12345678 -e HOST=rdsdatabse.c8s0mxywtk7m.us-east-2.rds.amazonaws.com -e PORT=5432 backend:2
+
+https://birthday.play-with-docker.com/context/

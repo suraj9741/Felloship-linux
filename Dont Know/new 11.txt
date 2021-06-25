@@ -1,0 +1,40 @@
+saving password in encrypted password
+shadow
+no
+password in encrypted
+pam module is there
+blue green
+will do rolling update
+guys rolling update
+one at a time
+rolling update
+no
+you have to do rolling update
+to avoid issue
+rolling update
+yes 
+node affinity
+guys node affinity
+you can define label to node pool
+check first DNS
+whether its getting resolve
+then connect to webserver on port using tcp connection
+No
+normal setup
+if its not criticial and small then go for container or vm
+setup security group, NACL
+setup IAM plicy
+policy
+IAM Policy
+Create seperate VPC
+disallow public access
+block public access
+setup s3 policy to bucket
+restric access to bucket using policy
+lunch bastion server in public
+bastion server
+guys bastion server in public subnet and access all private instacne
+dangerous
+we should mention proper path 
+we should use rm , mv command very carefully
+Sanjana you attented that session?

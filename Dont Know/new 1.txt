@@ -1,0 +1,7 @@
+aws ecr get-login-password --region us-east-2 | docker login --username Suraj --password-stdin 196433836505.dkr.ecr.us-east-2.amazonaws.com
+
+docker tag backend:latest 023764961900.dkr.ecr.us-east-2.amazonaws.com/backend:latest
+docker push 023764961900.dkr.ecr.us-east-2.amazonaws.com/backend:latest
+
+docker tag nginx:latest 023764961900.dkr.ecr.us-east-2.amazonaws.com/frontend:latest
+docker push 023764961900.dkr.ecr.us-east-2.amazonaws.com/frontend:latest

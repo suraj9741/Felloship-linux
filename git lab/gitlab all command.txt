@@ -1,0 +1,91 @@
+Today we will learn
+Download and install Git
+Add a project/folder to git
+Commit and Push project to GitLab
+
+Step 1: Download git from https://git-scm.com/​ and install git 
+
+Step 2: Check git is installed on your system
+   git --version
+
+Step 3: Run following git commands
+   git config --global user.name “xxxx”
+   git config --global user.name
+
+   git config --global user.email “xxxx”
+   git config --global user.email
+
+   git config --global --list
+
+Step 4: Create a demo project/folder & add to git
+   
+Step 5: Goto cmd OR terminal OR git bash 
+     CD to the location of the folder and run following commands
+   git init
+   git status
+   git add .
+   git commit -m “msg”
+   git push -u “url” master
+
+Step 6: Check project (files) added on GitLab
+
+
+
+
+
+
+
+
+
+Git global setup
+git config --global user.name "Suraj Jadhav"
+git config --global user.email "surajjadhav9741@gmail.com"
+
+Create a new repository
+git clone https://gitlab.com/demo215/demo.git
+cd demo
+touch README.md
+git add README.md
+git commit -m "add README"
+git push -u origin master
+
+Push an existing folder
+cd existing_folder
+git init
+git remote add origin https://gitlab.com/demo215/demo.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+
+Push an existing Git repository
+cd existing_repo
+git remote rename origin old-origin
+git remote add origin https://gitlab.com/demo215/demo.git
+git push -u origin --all
+git push -u origin --tags
+
+
+
+# Linux x86-64
+sudo curl -L --output /usr/local/bin/gitlab-runner "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64"
+
+# Linux x86
+sudo curl -L --output /usr/local/bin/gitlab-runner "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-386"
+
+# Linux arm
+sudo curl -L --output /usr/local/bin/gitlab-runner "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-arm"
+
+# Linux arm64
+sudo curl -L --output /usr/local/bin/gitlab-runner "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-arm64"
+
+# Linux s390x
+sudo curl -L --output /usr/local/bin/gitlab-runner "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-s390x"
+
+/home/gitlab-runner/builds/M2aBdwUx/0/suraj9741/chatapp
+
+$ sudo usermod -a -G sudo gitlab-runner
+sudo visudo
+gitlab-runner ALL=(ALL) NOPASSWD: ALL
+
+sudo chmod 666 /var/run/docker.sock
+sudo apt-get install pass gnupg2

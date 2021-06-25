@@ -1,0 +1,58 @@
+#master nodes
+kubectl get pods -o wide
+ssh ip-172-20-60-75.us-east-2.compute.internal
+curl http://172.20.60.75:8000
+curl http://100.96.1.4:8000
+exit
+curl http://172.20.60.75:8000
+	
+# ec2 instance
+nano backend.yml
+kubectl apply -f backend.yml
+
+# see deploy pods
+kubectl get deploy
+kubectl get pod -o wide
+
+# enter in the ubuntu master
+ssh ubuntu@3.139.67.217
+
+# create deploy services
+nano backendservice.yml
+kubectl apply -f backendservice.yml
+kubectl get deploy
+
+# see deploy service file
+kubectl get svc -o wide
+curl http://172.20.60.75:8000
+ssh ubuntu@3.139.67.217
+
+# delete deploy 
+kubectl delete deploy frontend
+
+# show overall information of pods
+kubectl describe pod backend-7b8dc44d9b-4nl2v
+
+#
+kubectl exec -it backend-7b8dc44d9b-lzb2x /bin/bash
+kubectl logs backend-7b8dc44d9b-lzb2x
+kubectl cluster-info
+
+#
+kubectl describe services backendservice
+
+configmap - chatpp.conf
+
+#
+kubectl apply -f config.yml
+kubectl apply -f frontend.yml
+kubectl apply -f frontendservice.yml
+
+#
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/aws/deploy.yaml
+wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/aws/deploy-tls-termination.yaml
+
+#
+http://chat.surajkube.ml/
+
+kubectl -n ingress-nginx describe svc ingress-nginx-controller

@@ -1,0 +1,43 @@
+root@ip-10-0-0-233:~# sudo apt-get update
+root@ip-10-0-0-233:~#
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+root@ip-10-0-0-233:~# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+root@ip-10-0-0-233:~# sudo apt-key fingerprint 0EBFCD88
+root@ip-10-0-0-233:~# 
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+root@ip-10-0-0-233:~# sudo apt-get update
+root@ip-10-0-0-233:~# sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+-y
+
+
+root@ip-10-0-0-233:~# sudo docker -v
+root@ip-10-0-0-233:~# apt install docker-compose
+root@ip-10-0-0-233:~# sudo docker run hello-world
+
+
+
+root@ip-10-0-0-233:~# sudo service docker start
+root@ip-10-0-0-233:~# docker info
+root@ip-10-0-0-233:~# docker run -it ubuntu /bin/bash
+root@ip-10-0-0-233:~# docker pull chef/chefdk
+root@ip-10-0-0-233:~# docker run -it --name surajchef chef/chefdk /bin/bash
+root@ip-10-0-0-233:~# docker start gracious_mirzakhani
+root@ip-10-0-0-233:~# docker ps
+root@ip-10-0-0-233:~# docker ps -a
+root@ip-10-0-0-233:~# docker images
+root@ip-10-0-0-233:~# docker attach gracious_mirzakhani
+root@ip-10-0-0-233:~# docker stop gracious_mirzakhani
+root@ip-10-0-0-233:~# docker start gracious_mirzakhani
+root@ip-10-0-0-233:~# docker rm naughty_cohen
+
+root@4fa71ef34cd5:/# cat /etc/os-release
+

@@ -1,0 +1,45 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  tags:
+    - webchatapp
+  image: ubuntu:18.04
+  script:
+    - sudo apt-get update
+    - sudo apt-get -y install python3-pip python-dev nginx git
+    - pip3 install virtualenv
+    - virtualenv env
+    - source env/bin/activate
+    - git clone https://github.com/pavandusane/new_chatapp.git
+    - cd new_chatapp
+    - pip3 install -r requirements.txt
+    - pip3 install django bcrypt django-extensions
+    - pip3 install gunicorn
+    - sudo apt-get install python3-dev default-libmysqlclient-dev build-essential -y
+    - pip3 install mysqlclient
+    - cd ..
+    - sudo apt-get install zip -y
+    - zip -r new_chatapp.zip new_chatapp/
+    - sudo apt -y install curl
+  artifacts:
+    paths:
+      - env
+      - new_chatapp.zip
+deploy:
+  stage: deploy
+  tags:
+    - webchatapp
+  image: ubuntu:18.04
+  before_script:
+    - sudo apt-get update
+    - sudo apt install openssh-client -y
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - scp -o StrictHostKeyChecking=no new_chatapp.zip ubuntu@ec2-54-176-102-226.us-west-1.compute.amazonaws.com:/home/ubuntu/app
+    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-54-176-102-226.us-west-1.compute.amazonaws.com "cd /home/ubuntu/app;unzip new_chatapp.zip"

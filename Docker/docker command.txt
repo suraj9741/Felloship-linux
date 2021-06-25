@@ -1,0 +1,39 @@
+docker run --name mynginxtest -p 80:80 -d nginx
+netstat -ltnp | grep -w ':80' 
+docker run -d --name mysql-server -p 3306:3306 -e "MYSQL_ROOT_PASSWORD=admin1234" mysql
+apt-get install mysql-client
+docker exec -it mysql-server mysql -uroot -p
+netstat -taupen | grep LIST
+docker build -t name .
+docker run -it --name suraj ubuntu:18.04 /bin/bash
+docker start suraj
+docker commit suraj kubectlimg
+
+docker exec -it mynginxtest bash
+docker run --name containername --link beckend:backend1 -p 8080:80 -d nginxdemo
+
+FROM nginx
+
+MAINTAINER Suraj
+
+RUN apt-get update
+
+RUN apt install nginx
+
+COPY /root/fundo /etc/nginx/sites-available/
+
+RUN rm /etc/nginx/conf.d/default.conf
+
+RUN rm /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+RUN ln -s /etc/nginx/sites-available/fundo /etc/nginx/sites-enabled
+
+RUN rm /etc/nginx/sites-enabled/default
+
+CMD ["nginx", "-g", "daemon off
+
+docker run -it --name mynginxtest --link test -p 80:80 -d nginx
+
+docker run --name backend -p 8080:8000 -d 979930163b7b
+
+apt  install docker-compose

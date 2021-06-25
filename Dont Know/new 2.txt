@@ -1,0 +1,44 @@
+Commands used in the video:
+- Getting the API URL: kubectl cluster-info | grep 'Kubernetes master' | awk '/http/ {print $NF}'
+- Setting the secret to a variable: secret=$(kubectl get secrets --all-namespaces|awk '/gitlab-token/ {print $2}')
+- Getting the Certificate: kubectl get secret $secret -o jsonpath="{['data']['ca\.crt']}" | base64 --decode
+- Getting the Token: kubectl get secret $secret -o jsonpath="{['data']['token']}" | base64 --decode && echo
+- Checking if RBAC is enabled: kubectl api-versions|grep -i rbac
+
+
+gitlab-runner@ip-172-31-43-245:~$ kubectl cluster-info | grep -E 'Kubernetes master|Kubernetes control plane' | awk '/http/ {print $NF}'
+https://api.jbljbl.ml
+gitlab-runner@ip-172-31-43-245:~/.kube$ kubectl cluster-info
+Kubernetes control plane is running at https://api.jbljbl.ml
+KubeDNS is running at https://api.jbljbl.ml/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+gitlab-runner@ip-172-31-43-245:~/.kube$ kubectl cluster-info | grep 'Kubernetes master' | awk '/http/ {print $NF}'
+gitlab-runner@ip-172-31-43-245:~/.kube$ kubectl cluster-info | grep 'Kubernetes master' | awk '/http/ {print $NF}'
+gitlab-runner@ip-172-31-43-245:~/.kube$ secret=$(kubectl get secrets --all-namespaces|awk '/gitlab-token/ {print $2}')
+gitlab-runner@ip-172-31-43-245:~/.kube$ kubectl get secret $secret -o jsonpath="{['data']['ca\.crt']}" | base64 --decode
+-----BEGIN CERTIFICATE-----
+MIIC8jCCAdqgAwIBAgIMFmS3Yeyr+Qha91PxMA0GCSqGSIb3DQEBCwUAMBUxEzAR
+BgNVBAMTCmt1YmVybmV0ZXMwHhcNMjEwMjE2MDI0MzE4WhcNMzEwMjE2MDI0MzE4
+WjAVMRMwEQYDVQQDEwprdWJlcm5ldGVzMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+MIIBCgKCAQEA1EK9ILF5vxzAPvHqryUNqoLRhkK/2odX/jmdGLBouVgvZiIFqvr6
+n/mFCq+inmrn+62vjX13aa48vCgLhdk3PQRp7RV+MYZOk480Eba12WopMT1x0DM7
+YQ3JI/327Ur6ibX72LkaQXo/hCgjwcj5L0EImvDEP5iJETaTv302Q6UmHkVnBLAt
+ov8iGB5PRg709KT/WWchluEZOHw4ZZv0t4w7KFDsfZjbSex/oOPrfbmhpCekJq+D
+3HCbFoMsUuocwE7VHzdoWSwYsCnwTY02NjeCR0xJGRN7b5V1syEXesmiQOxxzUH6
+YWBxLtIwKQ/hZDFdz+f63dhLHQhEDOkpjwIDAQABo0IwQDAOBgNVHQ8BAf8EBAMC
+AQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUJzu+SkA0p2OA5MrbLXXDlT83
+V0EwDQYJKoZIhvcNAQELBQADggEBADYKmwOJCpOpzETldSJ6QIrenW+mfAn4qQzS
+Eb0baGIysjd4DUXy7O48WUs4Xnw4LO7qeQwy9sNIA+WmUyIGara1xfc2wVavrTCJ
+kMlB10L/yfIRN/9E8q7AEU5URkjG7d2TPLp9N/eNoXCAAjlVhIWNqeBeDlhHPzKP
+263Ojr5trjyR784kN3tq3qcyljTuZcR9t4D2+juzGtroxir47csDncddWIbjJtPL
+fwh7BZ2W5/7vFE9fYjPNppmLm289cN7is6xFk6Id19xJXRZ9fCLSDGqacjmDQsDh
+Zz8b3LTqUVX4hc+6lc9oAkX1kXkRI6JYjFPjaaR95guY9Ybe2gM=
+-----END CERTIFICATE-----
+gitlab-runner@ip-172-31-43-245:~/.kube$ kubectl get secret $secret -o jsonpath="{['data']['token']}" | base64 --decode && echo
+eyJhbGciOiJSUzI1NiIsImtpZCI6Ik9WQ2xZeTVTdmZJbEJZUFVWQnRUUzFlbUtSYTBXNThxZWlscGxqMkNXdVUifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImdpdGxhYi10b2tlbi1md2RoOCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJnaXRsYWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI0Yjc5YjQzYi1lYmZhLTQzZjctOWVhNy1lNmEzYjI0MGNmZmUiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6ZGVmYXVsdDpnaXRsYWIifQ.Pgl7TwGU8SxhF1rjS0i9LBUYUWsr9J3nHGJnIRZRU4XmZV3Fc84SMY4CGulvIJoIaj8Z_jlvZsvDYX-YtDYM-KsRkz7XBDLGTueB8juVTt8WaMZ9U2W_x4jpioCwZJ3clP5I4jknK3TPk-_Ohtl0EO-8aZAn43XSzrsnjmJZMgMCG36uoH-IDt3fiH7a5R8JHKoFaIDAY2n0y8Mxh5wc5qo_PAneyZ7hDXalnS7qzKQGGZ6_BdGiBUiLhAw7snEZMi4myZAvaHwCpUcgCX-1350mXZQZvLN1HLJvhaDpEQ6LlqBiy4we5SBeEwcLQO_V50y8NG6dqSOMDisbbKTaSg
+gitlab-runner@ip-172-31-43-245:~/.kube$ kubectl api-versions|grep -i rbac
+rbac.authorization.k8s.io/v1
+rbac.authorization.k8s.io/v1beta1
+gitlab-runner@ip-172-31-43-245:~/.kube$
+

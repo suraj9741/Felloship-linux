@@ -1,0 +1,39 @@
+Parameters:
+  MyKeyPairName:
+    Type: String
+  MyImageId:
+    Type: String
+
+Resources:
+  MyAutoScalingLaunchConfiguration:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          cat > ~/file <<EOF
+          Hi,
+          How is it going.
+          EOF
+      KeyName: !Ref MyKeyPairName
+      ImageId: !Ref MyImageId
+      SecurityGroup: !Ref MySecurityGroup
+      InstanceType: t2.micro
+
+  MySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allowing SHH From everywhere
+      SecurityGroupIngress:
+        IpProtocol: tcp
+        ToPort: '22'
+        FromPort: '22'
+        CidrIp: 0.0.0.0/0
+
+  MyAutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      AvailabilityZone: !GetAZs ''
+      MinSize: '1'
+      MaxSize: '4'
+      LaunchConfigurationName: !Ref MyAutoScalingLaunchConfiguration

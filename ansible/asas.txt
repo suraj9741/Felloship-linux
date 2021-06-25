@@ -1,0 +1,50 @@
+--- #my First test1 Playbook
+- hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+          - name: Install
+            apt:
+                name: "{{item}}"
+                state: present
+            with_items:
+            - git
+            - python-dev
+            - nginx
+            - python3-pip
+          - name: Install pip package
+            pip:
+                    name: virtualenv
+                    state: present
+          - name: create env
+            command: virtualenv env
+          - name: Install re
+            pip:
+                    name: "{{item}}"
+                    state: present
+                    virtualenv: /home/ansible/env
+            with_items:
+            - django
+            - bcrypt
+            - django-extensions
+            - gunicorn
+          - name: download git
+            git:
+                    repo: 'https://github.com/suraj9741/new_chatapp-master.git'
+                    version: dependabot/pip/cryptography-3.2
+                    dest: /home/ansible/new_chatapp
+          - name: copy gunicorn
+            copy:
+                    src: /home/ansible/new_chatapp/gunicorn.service
+                    dest: /etc/systemd/system/
+          - name: copy gunicorn
+            copy:
+                    src: /home/ansible/new_chatapp/fundo
+                    dest: /etc/nginx/sites-available/
+
+          - name: Install requirements
+            pip:
+                    requirements: /home/ansible/new_chatapp/requirements.txt
+                    virtualenv: /home/ansible/env
+                    virtualenv_python: python3.6

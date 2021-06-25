@@ -1,0 +1,17 @@
+define service{
+
+            use                     local-service
+            host_name               client.itzgeek.local
+            service_description     SWAP Uasge
+            check_command           check_nrpe!check_swap
+
+}
+
+define service{
+
+            use                     local-service
+            host_name               client.itzgeek.local
+            service_description     Root / Partition
+            check_command           check_nrpe!check_root
+
+}

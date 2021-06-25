@@ -1,0 +1,30 @@
+
+FROM ubuntu:18.04
+
+MAINTAINER suraj
+
+RUN apt-get -y update
+RUN apt-get install python3-pip python-dev nginx git -y
+RUN apt-get -y update
+RUN pip3 install virtualenv
+RUN mkdir /app
+RUN cd /app
+RUN ls
+RUN pwd
+RUN virtualenv env
+CMD source /app/env/bin/activate
+WORKDIR /app
+RUN git clone https://github.com/suraj9741/new_chatapp-master.git
+RUN ls /app
+RUN ls
+RUN cd /app/new_chatapp-master/
+RUN pip3 install -r /app/new_chatapp-master/requirements.txt
+RUN pip3 install django bcrypt django-extensions
+RUN pip3 install gunicorn
+RUN ls
+RUN cd new_chatapp-master/fundoo
+WORKDIR new_chatapp-master/fundoo
+
+CMD ["gunicorn"  , "-b", "0.0.0.0:8000", "fundoo.wsgi:application"]
+EXPOSE 8000
+

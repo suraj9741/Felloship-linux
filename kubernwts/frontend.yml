@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysite-deployment
+  labels:
+    app: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: frontendcontainer
+        image: "023764961900.dkr.ecr.us-east-2.amazonaws.com/frontend:latest"
+        volumeMounts:
+        - name: foo
+          mountPath: "/etc/nginx/sites-enabled/"
+          readOnly: true
+      volumes:
+      - name: foo
+        configMap:
+          name: nginx-config

@@ -1,0 +1,21 @@
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+kubectl get deployment metrics-server -n kube-system
+kubectl -n kube-system get pods
+kubectl -n kube-system logs metrics-server-ff44d8b65-q8cbn
+kubectl -n kube-system top pods
+kubectl edit deploy mysite-deployment
+
+resources:
+                limits:
+                        cpu: "100m"
+                requests:
+                        cpu: "100m"
+
+kubectl autoscale deploy mysite-deployment --min 1 --max 5 --cpu-percent 20
+kubectl describe hpa mysite-deployment
+kubectl delete hpa mysite-deployment
+apt install siege
+siege -q -c 10 -t 3m http://chat.surajiphone.ml/
+watch kubectl get all
+kubectl describe deploy mysite-deployment
+kubectl describe hpa mysite-deployment

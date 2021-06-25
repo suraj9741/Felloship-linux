@@ -1,0 +1,20 @@
+version: "3.2"
+
+services:
+
+   front :
+      image : nginx:3
+      ports :
+      - 80:80
+   back  :
+      image : backend:2
+      ports :
+      - 8000:8000
+      environment :
+      - NAME=Django
+      - USER=RDSdatabse
+      - PASSWORD=12345678
+      - HOST=rdsdatabse.c8s0mxywtk7m.us-east-2.rds.amazonaws.com
+      - PORT=5432
+
+

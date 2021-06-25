@@ -1,0 +1,32 @@
+--- #my First test1 Playbook
+- hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+          - name: Install
+            apt:
+                name: "{{item}}"
+                state: present
+            with_items:
+            - git
+            - python-dev
+            - nginx
+            - python3-pip
+          - name: Install pip package
+            pip:
+                    name: virtualenv
+                    state: present
+          - name: create env
+            command: virtualenv env
+
+		  - name: 
+		  - name: Install requirements
+		    pip: 
+			  requirements=/my_app/requirements.txt 
+			  virtualenv=/user/home/venvs/myenv
+		  - name: Install requirements
+		    pip: 
+			  requirements: /my_app/requirements.txt
+			  virtualenv: /user/home/venvs/myenv
+			  virtualenv_python: python3.4

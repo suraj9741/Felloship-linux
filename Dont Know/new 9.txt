@@ -1,0 +1,65 @@
+https://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/install-nagios-4-1-1-ubuntu-16-04.html
+
+nagiosadmin
+Suraj@123
+
+#add contact detaile
+vi /usr/local/nagios/etc/objects/contacts.cfg
+
+
+
+####serverside command
+apt-get update
+apt-get install build-essential apache2 php openssl perl make php-gd libgd-dev libapache2-mod-php libperl-dev libssl-dev daemon wget apache2-utils unzip
+useradd nagios
+groupadd nagcmd
+usermod -a -G nagcmd nagios
+usermod -a -G nagcmd www-data
+cd /tmp
+wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.3.tar.gz
+tar -zxvf /tmp/nagios-4.4.3.tar.gz
+cd /tmp/nagios-4.4.3/
+./configure --with-nagios-group=nagios --with-command-group=nagcmd --with-httpd_conf=/etc/apache2/sites-enabled/
+make all
+make install
+make install-init
+make install-config
+make install-commandmode
+make install-webconf
+htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+a2enmod cgi
+systemctl restart apache2
+cd /tmp
+wget https://nagios-plugins.org/download/nagios-plugins-2.2.1.tar.gz
+tar -zxvf /tmp/nagios-plugins-2.2.1.tar.gz
+cd /tmp/nagios-plugins-2.2.1/
+./configure --with-nagios-user=nagios --with-nagios-group=nagios
+make
+make install
+/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+systemctl enable nagios
+systemctl start nagios
+sudo apt install -y nagios-nrpe-plugin
+sudo nano /usr/local/nagios/etc/nagios.cfg
+sudo mkdir /usr/local/nagios/etc/servers
+sudo nano /usr/local/nagios/etc/objects/commands.cfg
+sudo nano /usr/local/nagios/etc/servers/client.itzgeek.local.cfg
+/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+sudo systemctl restart nagios
+
+
+######clientside command
+sudo apt update
+sudo apt install -y nagios-nrpe-server nagios-plugins
+sudo nano /etc/nagios/nrpe.cfg
+
+sudo nano /etc/nagios/nrpe.cfg
+/usr/lib/nagios/plugins/check_procs -w 200 -c 250
+sudo systemctl restart nagios-nrpe-server
+
+
+
+sudo nano /usr/local/nagios/etc/servers/client.itzgeek.local.cfg
+/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+sudo systemctl restart nagios
+sudo nano /usr/local/nagios/etc/objects/localhost.cfg

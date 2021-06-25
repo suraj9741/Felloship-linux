@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        -
+          env:
+            -
+              name: NAME
+              value: "Chatapp"
+            -
+              name: USER
+              value: "postgres"
+            -
+              name: PASSWORD
+              value: "123456789"
+            -
+              name: HOST
+              value: "database-1.co5jwkjbgpud.us-east-2.rds.amazonaws.com"
+            -
+              name: PORT
+              value: "5432"
+          image: "023764961900.dkr.ecr.us-east-2.amazonaws.com/backend"
+          imagePullPolicy: Always
+          name: backendcontainer
+          ports:
+            -
+              containerPort: 8000

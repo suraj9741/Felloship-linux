@@ -1,0 +1,54 @@
+root@ip-172-31-43-245:~# kubectl cluster-info | grep -E 'Kubernetes master|Kubernetes control plane' | awk '/http/ {print $NF}'
+https://api.jbljbl.ml
+root@ip-172-31-43-245:~# kubectl get secrets
+NAME                  TYPE                                  DATA   AGE
+default-token-qwpg6   kubernetes.io/service-account-token   3      15m
+root@ip-172-31-43-245:~# kubectl get secret default-token-qwpg6 -o jsonpath="{['data']['ca\.crt']}" | base64 --decode
+-----BEGIN CERTIFICATE-----
+MIIC8jCCAdqgAwIBAgIMFmTuWUbACyU/Eze/MA0GCSqGSIb3DQEBCwUAMBUxEzAR
+BgNVBAMTCmt1YmVybmV0ZXMwHhcNMjEwMjE2MTkzMDM1WhcNMzEwMjE2MTkzMDM1
+WjAVMRMwEQYDVQQDEwprdWJlcm5ldGVzMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+MIIBCgKCAQEAvaNK8Z0XfGCZ05JYCWR36amKeDQ9L39DKuZD6plpbnugIHgONYF5
+p2X74g1jOBCWhOAlEtlz6dgsjvZSyxLUwzQMLwjMdGmhN59KZ46AVm9rLOrS6GQS
+99M44H0ayEMqYDbxE0d+EN2prEuRNv997XGFPbzyFnIEgPHF5gAEsYtqixa61jQw
+sraklVruA5TLNAef2XDgrGH2m0En7mRRNvtInPc21LFLF6Bj0sHKQUOgiw/aiqEX
+OPJPaelhZ4jdgYuI3Unudaz4RWFf0tThoEzvXeCHq8HxDzNC4A96A3/b/mvZ8fDU
+ndOOhwVqjcOe1z9cNksNePxJ8SckOFrz2QIDAQABo0IwQDAOBgNVHQ8BAf8EBAMC
+AQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUwpokXg45uilv9j6B77keXkse
+3S4wDQYJKoZIhvcNAQELBQADggEBADXcLYV208llcITJF/UD5xUJnnhHKA+PEsRe
+Ah2x2V5oEgF5PNGxlW3+Ek9TSINqWoLSUcyqaXW8mCLKESurF7GD8Rj2lyKscpR2
+GUhTYx16+ja8766y6/hrjy4SWPBybrwVDX/G/7fp3y/p2yApzseBj4aIvtghfhKD
+Vhi0BvSKeCQwpGt656m/UrokEN7uGZ/3AmF3hn9+RfDbRjmJyPMn6H42+YZLqq6v
+qhBf+JntMIiBtDyto3gRPZmTnjdQ5oWj3EfG3DNaIgq08aN0VFGgH4dVGakxycZW
+3mWzg2MvGehcbLRrDOf2Oihfmql+rz7nQ9RlqAdz2BHLee6CXmM=
+-----END CERTIFICATE-----
+root@ip-172-31-43-245:~# nano gitlab-admin-service-account.yaml
+root@ip-172-31-43-245:~# kubectl apply -f gitlab-admin-service-account.yaml
+serviceaccount/gitlab created
+Warning: rbac.authorization.k8s.io/v1beta1 ClusterRoleBinding is deprecated in v1.17+, unavailable in v1.22+; use rbac.authorization.k8s.io/v1 ClusterRoleBinding
+clusterrolebinding.rbac.authorization.k8s.io/gitlab-admin created
+root@ip-172-31-43-245:~# kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep gitlab | awk '{print $1}')
+Name:         gitlab-token-phdzc
+Namespace:    kube-system
+Labels:       <none>
+Annotations:  kubernetes.io/service-account.name: gitlab
+              kubernetes.io/service-account.uid: c84cf550-8f49-475e-a64f-784eeaa086f4
+
+Type:  kubernetes.io/service-account-token
+
+Data
+====
+ca.crt:     1082 bytes
+namespace:  11 bytes
+token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IkpKXzQyeUxvcl9wckNBYnVsZkl6WkRvT1EzT2RQRUg0c3hGOS04ZWkwQkEifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJnaXRsYWItdG9rZW4tcGhkemMiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZ2l0bGFiIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiYzg0Y2Y1NTAtOGY0OS00NzVlLWE2NGYtNzg0ZWVhYTA4NmY0Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOmdpdGxhYiJ9.S2d5J93r2cR8a9qV1U7L6h4D5pea_e5s5Zo6_zitSLiO6LUMWiAP4cCooTLUvqsrYkm1pMe5SkUqJDsZEMW7Kk9VVm67dG9TubeG7cheSMFoPtGeVyVVofpfLYL8WWrrftVaMNLm_LYayMllrL93yYdkVkLux7IJkMrnmWd3jDCD2iAolZSQ9msBPkFeG5oRWHwvDvSkoE0sR9sxB7qcUgiWwZXNnD4w9H9AVpkLhY18jW5oi8375-zO4pQmWOh49by3K2hVAjyZAndNbgEY_VrgqQWIMwXAiDB2MQ-lIenBmC1GKIJ-OGIKa2WugBTq4IfqTSvcUXOscRY-7nEHPA
+
+
+
+
+root@ip-172-31-43-245:~# kubectl get pods -o wide -n gitlab-managed-apps
+root@ip-172-31-43-245:~# kubectl version  --short | grep -i server
+
+name:lachlanevenson/k8s-kubectl:v1.19.7
+entrypoint:["/bin/sh","-c"]
+
+aws eks update-kubeconfig --name cluster --region ap-south-1

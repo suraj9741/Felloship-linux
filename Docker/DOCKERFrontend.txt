@@ -1,0 +1,19 @@
+FROM ubuntu:18.04
+
+MAINTAINER Suraj
+
+RUN apt-get update
+
+RUN apt-get install -y nginx
+
+COPY fundoo /etc/nginx/sites-available
+
+RUN ln -s /etc/nginx/sites-available/fundoo /etc/nginx/sites-enabled
+
+RUN rm /etc/nginx/sites-enabled/default
+#RUN rm /etc/nginx/sites-enabled/default
+
+CMD ["nginx", "-g", "daemon off;"]
+
+EXPOSE 80
+

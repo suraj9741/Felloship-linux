@@ -1,0 +1,66 @@
+stages:
+    - build
+    - deploy
+    - kaniko
+    - test
+image build:
+    stage: build
+    image: docker
+    script:
+        - docker --version
+        - cd backend
+#        - docker build -t backend .
+#        - docker images
+        - docker login --username=suraj9741 --password="Suraj@123"
+#        - docker tag backend:latest suraj9741/backend:latest
+#        - docker push suraj9741/backend:latest
+deploy backend:
+    stage: deploy
+    image: 
+        name: 023764961900.dkr.ecr.us-east-2.amazonaws.com/gitlab:latest
+        entrypoint: ["/bin/sh","-c"]
+    script:
+        - ls
+        - docker --version
+        - cd backend
+#        - docker rmi backend
+#        - docker build -t backend .
+#        - docker images
+#        - docker tag backend:latest 023764961900.dkr.ecr.us-east-2.amazonaws.com/backend:latest
+#        - docker push 023764961900.dkr.ecr.us-east-2.amazonaws.com/backend:latest
+#        - cd ..
+#        - export KOPS_CLUSTER_NAME=jbljbl.ml
+#        - export KOPS_STATE_STORE=s3://jbljbl.k8s.ml
+#        - kops get cluster
+#        - sudo kubectl get nodes
+#        - sudo kubectl delete deploy backend
+#----------------------------
+#        - kubectl apply -f backend.yml
+#        - kubectl apply -f backendserv.yml
+#        - kubectl apply -f config.yml
+#        - kubectl apply -f frontend.yml
+#        - kubectl apply -f frontendserv.yml
+#        - kubectl apply -f ingress.yml
+build kaniko:
+  stage: test
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - ls
+#    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+#    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+  rules:
+    - if: $CI_COMMIT_TAG
+testing stage:
+    stage: 
+    image: 
+        name: 023764961900.dkr.ecr.us-east-2.amazonaws.com/gitlab:latest
+        entrypoint: ["/bin/sh","-c"]
+    script:
+        - kubectl get deploy
+        - kubectl get svc
+        - kubectl get pods
+        - kubectl get configmap
+        - kubectl get ing

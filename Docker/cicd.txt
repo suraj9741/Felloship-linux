@@ -1,0 +1,46 @@
+stages:
+    - build
+    - deploy
+    - test
+image build:
+    stage: build
+    image: 
+        name: gcr.io/kaniko-project/executor:debug
+        entrypoint: [""]
+    script:
+        - mkdir -p /kaniko/.docker
+        - ls
+        - echo $CI_REGISTRY
+        - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+        - cat /kaniko/.docker/config.json
+        - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+deploy backend:
+    stage: deploy
+    image: 
+        name: 023764961900.dkr.ecr.us-east-2.amazonaws.com/gitlab:latest
+        entrypoint: ["/bin/sh","-c"]
+    script:
+        - ls
+        - export KOPS_CLUSTER_NAME=surajiphone.ml
+        - export KOPS_STATE_STORE=s3://jbljbl.k8s.ml
+        - kops get cluster
+        - kubectl get nodes
+        - kubectl delete deploy backend
+#----------------------------
+        - kubectl apply -f backend.yml
+#        - kubectl apply -f backendserv.yml
+#        - kubectl apply -f config.yml
+#        - kubectl apply -f frontend.yml
+#        - kubectl apply -f frontendserv.yml
+#        - kubectl apply -f ingress.yml
+testing stage:
+    stage: test
+    image: 
+        name: 023764961900.dkr.ecr.us-east-2.amazonaws.com/gitlab:latest
+        entrypoint: ["/bin/sh","-c"]
+    script:
+        - kubectl get deploy
+        - kubectl get svc
+        - kubectl get pods
+        - kubectl get configmap
+        - kubectl get ing

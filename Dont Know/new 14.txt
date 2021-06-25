@@ -1,0 +1,47 @@
+cat test.sh
+   47  ./test.sh chatapp stg
+   48  ./test.sh swagger stg
+   49  cat test.sh
+   50  echo $USER
+   51  cat /etc/default/some.config
+   52  vim /etc/default/some.config
+   53  cat /etc/default/some.config | grep -A 3
+   54  cat /etc/default/some.config | grep -A 3 '^#'
+   55  cat /etc/default/some.config | grep -P -A 3 '^#'
+   56  cat /etc/default/some.config | grep  -A 3 "#chatapp-stg"
+   57  cat /etc/default/some.config | grep  -A 2 "#chatapp-stg"
+   58  MODULE=chatapp
+   59  STAGE=stg
+   60  cat /etc/default/some.config | grep  -A 2 "#${MODULE}-${STAGE}"
+   61  vim test.sh
+   62  chmod 755 test.sh
+   63  ./test.sh chatapp stg
+   64  ./test.sh swagger stg
+   65  FOLDER_MAP="src:#src;xyz:#/src/;abc:#abc"
+   66  echo $FOLDER_MAP
+   67  SRC=src
+   68  map=src:#src
+   69  echo $map | awk -F':#' '{ print $1}'
+   70  SRC=echo $map | awk -F':#' '{ print $1}'
+   71  SRC=`echo $map | awk -F':#' '{ print $1}'`
+   72  echo $SRC
+   73  DEST=`echo $map | awk -F':#' '{ print $2}'`
+   74  echo $DEST
+   75  cd
+   76  cd /shellscript/
+   77  sh if.sh
+   78  cd /etc/default/some.config
+   79  cd /etc/default/
+   80  cat some.config
+   81  cd /shellscript/
+   82  nano if.sh
+   83  sh if.sh
+   84  sudo su ubuntu
+   85  cd
+   86  cd /shellscript/
+   87  ls
+   88  cat test.sh
+   89  cat /etc/default/some.config
+   90  history
+   
+   cat /etc/default/some.config | grep  -A 2 "#swagger-stg" | grep "users"

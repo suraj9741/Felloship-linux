@@ -1,0 +1,50 @@
+scp -i /home/ubuntu/Ubuntu_aws.pem -r /home ubuntu@ec2-18-222-213-140.us-east-2.compute.amazonaws.com:
+
+
+rsync -av  -i /home/ubuntu/Ubuntu_aws.pem /home ubuntu@ec2-18-222-213-140.us-east-2.compute.amazonaws.com:/
+ubuntu@ec2-18-222-213-140.us-east-2.compute.amazonaws.com: Permission denied (publickey).
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: error in rsync protocol data stream (code 12) at io.c(235) [sender=3.1.2]
+
+
+rsync -av  /home ubuntu@ec2-18-222-213-140.us-east-2.compute.amazonaws.com:/
+
+
+ubuntu@ip-172-31-23-167:/home$ rsync -av  /home ubuntu@172.31.25.77
+sending incremental file list
+rsync: mkdir "/home/ubuntu@172.31.25.77" failed: Permission denied (13)
+rsync error: error in file IO (code 11) at main.c(675) [Receiver=3.1.2]
+
+
+ubuntu@ip-172-31-23-167:/home$ rsync -av  /home ubuntu@172.31.25.77:/
+ubuntu@172.31.25.77: Permission denied (publickey).
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: error in rsync protocol data stream (code 12) at io.c(235) [sender=3.1.2]
+
+ubuntu@ip-172-31-23-167:/home$ rsync -av -i /home/ubuntu/Ubuntu_aws.pem   /home ubuntu@172.31.25.77:/home/ubuntu/folder
+ubuntu@172.31.25.77: Permission denied (publickey).
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: error in rsync protocol data stream (code 12) at io.c(235) [sender=3.1.2]
+
+
+ubuntu@ip-172-31-23-167:/home$ rsync -av -r /home ubuntu@172.31.25.77:/home/ubuntu/folder
+ubuntu@172.31.25.77: Permission denied (publickey).
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: error in rsync protocol data stream (code 12) at io.c(235) [sender=3.1.2]
+
+
+
+ubuntu@ip-172-31-25-77:~$ ping www.bridgelabz.compressed
+ping: www.bridgelabz.compressed: Name or service not known
+ubuntu@ip-172-31-25-77:~$ ping www.bridgelabz.com
+PING bridgelabz.com (35.244.62.62) 56(84) bytes of data.
+64 bytes from 62.62.244.35.bc.googleusercontent.com (35.244.62.62): icmp_seq=1 ttl=90 time=276 ms
+64 bytes from 62.62.244.35.bc.googleusercontent.com (35.244.62.62): icmp_seq=2 ttl=90 time=276 ms
+64 bytes from 62.62.244.35.bc.googleusercontent.com (35.244.62.62): icmp_seq=3 ttl=90 time=276 ms
+64 bytes from 62.62.244.35.bc.googleusercontent.com (35.244.62.62): icmp_seq=4 ttl=90 time=276 ms
+^C
+--- bridgelabz.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3003ms
+rtt min/avg/max/mdev = 276.262/276.308/276.339/0.372 ms
+ubuntu@ip-172-31-25-77:~$ ping www.bridgelabz.compressed
+ping: www.bridgelabz.compressed: Name or service not known

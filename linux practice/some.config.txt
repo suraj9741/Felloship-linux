@@ -1,0 +1,6 @@
+#chatapp-stg
+FOLDER_MAP = /shellscript/if.sh:/copy /shellscript/test.sh:/copy
+users= uday suraj ubuntu
+#swagger-stg
+FOLDER_MAP= /shellscript/new_chatapp-master:/copy/project
+users= suraj pavan

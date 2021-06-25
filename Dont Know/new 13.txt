@@ -1,0 +1,26 @@
+#!/bin/bash
+. /etc/default/some.config
+VAR1="Linuxize suraj pavan"
+VAR2="Linuxize"
+
+echo "$VAR1"
+for i in $var2
+do
+ if [ "$i" = "$USER" ]; then
+    echo "Strings are equal."
+ else
+    echo "Strings are not equal."
+ fi
+ #echo "$i"
+done
+
+for i in $VAR1
+do
+ echo "$i"
+done
+
+if [ "$var1" = "$USER" ]; then
+    echo "Strings are equal."
+else
+    echo "Strings are not equal."
+fi

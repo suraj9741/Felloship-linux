@@ -1,0 +1,3 @@
+sudo filebeat setup --template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["172.31.24.92:9200"]'
+
+tail -f /var/log/logstash/logstash-plain.log

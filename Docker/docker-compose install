@@ -1,0 +1,5 @@
+apt install docker-compose
+docker-compose -v
+docker-compose config
+docker-compose up -d
+docker-compose down

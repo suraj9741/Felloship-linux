@@ -1,0 +1,48 @@
+- hosts: all
+  user: ubuntu
+  become: yes
+  connection: ssh
+  tasks:
+  - name: Install
+    apt:
+      name: "{{item}}"
+      state: present
+    with_items:
+       - git
+       - python3-pip
+  - name: Download pip installer
+    get_url:
+      url: https://bootstrap.pypa.io/get-pip.py
+      dest: /tmp/get-pip.py
+  - name: Install pip
+    shell: |
+      /usr/bin/python /tmp/get-pip.py
+  - name: Install virtualenv module
+    pip:
+      name: virtualenv
+      state: latest
+  - name: Create virtualenv for app
+    pip:
+      name: bottle
+      state: latest
+      virtualenv: /home/ubuntu/venv
+  - name: Pull file from source
+    git:
+      repo: 'https://github.com/pavandusane/new_chatapp.git'
+      version: master
+      dest: /home/ubuntu/new_chatapp
+  - name: Install requirements
+    pip:
+      requirements=/home/ubuntu/new_chatapp/requirements.txt
+      virtualenv=/home/ubuntu/venv
+	  
+	  
+	  
+	  
+	  
+- hosts: blocks  
+  tasks:  
+  - name: Ansible copy the directory to the remote server  
+    copy:  
+      src:/Users/mdtutorials2/Documents/Ansible/copy_dir_ex  
+      dest:/Users/mdtutorials2/Documents/Ansible/tmp  

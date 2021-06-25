@@ -1,0 +1,27 @@
+stages:
+    - build
+    - test
+install dependencies:
+    stage: build
+    image: lachlanevenson/k8s-kubectl:v1.19.7
+    script:
+        - ls
+        - apt-get update
+        - cd /
+        - touch suraj.txt
+        - ls
+        - apt install net-tools
+        - ifconfig
+#        - cd backend
+#        - sudo docker rmi backend
+#        - sudo docker build -t backend .
+#        - sudo docker images
+#        - docker tag backend:latest 023764961900.dkr.ecr.us-east-2.amazonaws.com/backend:latest
+#        - docker push 023764961900.dkr.ecr.us-east-2.amazonaws.com/backend:latest
+#        - cd ..
+#        - export KOPS_CLUSTER_NAME=jbljbl.ml
+#        - export KOPS_STATE_STORE=s3://jbljbl.k8s.ml
+#        - kops get cluster
+#        - sudo kubectl get nodes
+#        - sudo kubectl delete deploy backend
+        - kubectl apply -f backend.yml 

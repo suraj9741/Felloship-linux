@@ -1,0 +1,16 @@
+#!/bin/bash
+sudo apt-get -y install ruby
+sudo apt-get update
+wget https://aws-codedeploy-us-east-2.s3.us-east-2.amazonaws.com/latest/install
+chmod +x ./install
+sudo ./install auto
+sudo apt-get update
+sudo apt-get -y install python3-pip python-dev nginx git
+sudo apt-get update
+sudo pip3 install virtualenv
+cd /home/ubuntu/
+virtualenv env
+
+source /home/ubuntu/env/bin/activate
+pip3 install django bcrypt django-extensions
+pip3 install gunicorn

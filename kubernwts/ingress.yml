@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1beta1
+#apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontend-kubernetes-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: chat.surajkube.ml
+    http:
+      paths:
+      - backend:
+          serviceName: mysite-serv
+          servicePort: 80
+  - host: chatapp.surajkube.ml
+    http:
+      paths:
+      - backend:
+          serviceName: mysite-serv
+          servicePort: 80

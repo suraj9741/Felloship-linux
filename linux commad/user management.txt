@@ -1,0 +1,45 @@
+root@ip-172-31-26-56:/home/ubuntu# chage -l nikhil
+Last password change                                    : Dec 17, 2020
+Password expires                                        : never
+Password inactive                                       : never
+Account expires                                         : never
+Minimum number of days between password change          : 0
+Maximum number of days between password change          : 99999
+Number of days of warning before password expires       : 7
+root@ip-172-31-26-56:/home/ubuntu# chage -M 9 nikhil
+root@ip-172-31-26-56:/home/ubuntu# chage -l nikhil
+Last password change                                    : Dec 17, 2020
+Password expires                                        : Dec 26, 2020
+Password inactive                                       : never
+Account expires                                         : never
+Minimum number of days between password change          : 0
+Maximum number of days between password change          : 9
+Number of days of warning before password expires       : 7
+root@ip-172-31-26-56:/home/ubuntu# chage -E $(date -d +30days +%Y-%m-%d) nikhil
+root@ip-172-31-26-56:/home/ubuntu# chage -l nikhil
+Last password change                                    : Dec 17, 2020
+Password expires                                        : Dec 26, 2020
+Password inactive                                       : never
+Account expires                                         : Jan 16, 2021
+Minimum number of days between password change          : 0
+Maximum number of days between password change          : 9
+Number of days of warning before password expires       : 7
+root@ip-172-31-26-56:/home/ubuntu# chage -W 2 nikhil
+root@ip-172-31-26-56:/home/ubuntu# chage -l nikhil
+Last password change                                    : Dec 17, 2020
+Password expires                                        : Dec 26, 2020
+Password inactive                                       : never
+Account expires                                         : Jan 16, 2021
+Minimum number of days between password change          : 0
+Maximum number of days between password change          : 9
+Number of days of warning before password expires       : 2
+root@ip-172-31-26-56:/home/ubuntu# usermod -aG sudo nikhil
+root@ip-172-31-26-56:/home/ubuntu# usermod -m -d /nikhil nikhil
+root@ip-172-31-26-56:/# sudo su nikhil
+$ cd
+$ pwd
+/nikhil
+
+
+
+

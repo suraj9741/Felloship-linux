@@ -1,0 +1,231 @@
+pythone data types
+	Numeric Type : int, float, complex
+	Text Type : string
+	Sequence Type : List, Tuple, range
+	Mapping Type : dict(key:value)
+	Set Type : Set, Frozenset(we cont duplicate)
+	Boolean Type : bool
+	Binary Type : Bytes, Bytearray, Memory View
+	
+	
+	Mutable  Vs 	Immutable
+	List			bool
+	set				int
+	dict			float
+					tuple
+					string
+					Frozenset
+List = ["suraj","pavan","uday"]  Ordered
+Tuple =("suraj","pavan","uday")  Ordered
+
+List[0]
+List[0:2]
+
+Tuple[0:2]
+
+Set={5,2,3,1,4} unordered
+Dictionary={"name":"Pavan",Age:24}
+
+float <-> int 
+int -> string
+
+======================================================================================================
+exception handling
+
+try:
+	Run This code
+except:
+	Execute this code when eception is occured
+else:
+	No Exeception? run this block
+finally:	
+	Always run this code
+
+devide by zero
+array out od bount
+
+======================================================================================================
+program  
+
+import math
+
+class Factors :
+    def __init__(self, UserNumber) :                                    # constructor
+        self.UserNumber = UserNumber
+        self.Factor = 1
+    def CalculateFactor(self) :                                         # method for calculating prime factor
+        while self.UserNumber % 2 == 0:                                 # print the two and divide by two if remainder is zero
+            print ('2'),
+            self.UserNumber = self.UserNumber / 2
+        for i in range(3, int(math.sqrt(self.UserNumber)) + 1, 2):      # find square root and increment by 2 in range of 3 to squareroot value
+            while self.UserNumber % i == 0:
+                print(i)
+                self.UserNumber = self.UserNumber / i
+        if self.UserNumber >2 :                                         # some time prime factor remaining at last so tat will print
+            print(int(self.UserNumber))
+
+if __name__ == '__main__' :                                             # main
+    try :                                                               # Exception Handling
+        UserNumber = int(input('Enter a number : '))                    # accepting Number from User
+        object = Factors(UserNumber)                                    # creating object and pass Parameter
+        object.CalculateFactor()                                        # Calling Method CalculateFactor
+    except :
+        print('Exception Raised.')
+
+BasicCorePrograms
+	Factors.py
+	FlipCoin.py
+	HarmonicNumber.py
+	LeapYear.py
+	PowerOf2.py
+	ReplaceString.py
+
+FunctionalProgram
+	2DArray.py
+	Distance.py
+	Quadratic.py
+	SumOfThreeInt.py
+	WindChill.py
+
+LogicalPrograms
+	CouponNumber.py
+	Gambler.py
+	TicTacToe.py
+	stopwatch.py
+	
+========================================================================================
+SQL
+Incert query
+INSERT INTO info(Id, name, email) VALUES(%s, %s, %s)", (id, name, email)
+
+View query
+select * from info
+
+Update query
+UPDATE info SET name = %s, email = %s WHERE (Id = %s);", (name, email, id)
+
+Delete query
+DELETE FROM `info` WHERE (`Id` = '%s');", (id, )
+
+=========================================================================================
+Flask
+
+Library
+
+from flask import Flask, render_template, request, redirect, url_for
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_socketio import SocketIO, join_room, leave_room
+
+Database
+from database import get_user, check_user, save_user, save_message
+
+Database connnection
+mydb = mysql.connector.connect(host="localhost", user="suraj", password="1234", auth_plugin='mysql_native_password', database="chatroom")
+
+============================================================================================
+HTML Method
+
+Get :
+	A GET method sent the data and server returns data in URL. 
+	Easy as comapre to post. 
+	not secure.
+
+POST :
+	A GET method sent the data and server is not cached by server.
+	Secure.
+
+HEAD :
+	Same as GET method, but no responce body
+
+PUT :
+	Replace all current representation of the target resource with upload content
+	
+DELETE : 
+	deletes all current representation of target resource given by URL 
+
+============================================================================================
+Types of topology
+	Mesh topology
+	Star topology
+	Bus topology
+	Ring topology
+	Hybrid topology
+
+============================================================================================
+OSI(Open system interconnection)
+	Application:
+		EndUser Layer : HTTP, FTP, IRC, SSH, DNS
+	Presentation:
+		Syntax Layer : SSL, SSH, IMAP(inter message access protocol), FTP, MPEG(MOving picture expert group), JPEG(image)
+	Session:
+		SYN & send to port : API's, Sockets, WinSock
+	Transport:
+		End-to-End Connection : TCP, UDP
+	Network:
+		Packets : IP, ICMP(internet control message protocol), IPSec, IGMP(internet group management protocol)
+	Data Link:
+		Frames: Ethernet, PPP, Switch, Bridge
+	Pysical:
+		Pysical Structure : Coax, Fiber, wireless, Hubs, Repeters
+============================================================================================
+DNS:
+	DNS resolver
+	Root name serevers
+	Top lavel domain servers
+	Autherize name servers
+============================================================================================
+Telenet(telecommunication network): port no 23
+	that provides command line interface for communication with remote device or server	
+	bidirection interactive text-oriented communication system 
+============================================================================================
+FTP:port 21 for control communication
+		 20 for data trancefer
+	Status code FTP:
+		125: connection open
+		220: ready for new user
+		331: username OK
+		425: con't open data connection
+		553: request action not taken
+============================================================================================
+SMTP(simple mail trancefer protocol): port no 25
+============================================================================================
+SNMP(simple network management protocol):
+	monitoring & managing device on internet
+============================================================================================
+TCP:connection protocol
+UDP:Connection less protocol
+============================================================================================
+CIDR (classless inter domain routing)
+192.168.60.55/20
+============================================================================================
+Docker
+docker run -it ubuntu /bin/bash
+docker commit suraj kubectlimg
+docker pull ubuntu
+docker start gracious_mirzakhani
+docker exec -it mysql-server mysql /bin/bash
+docker build -t name .
+docker-compose up -d
+docker-compose down
+docker run --name containername --link beckend:backend1 -p 8080:80 -d nginxdemo
+============================================================================================
+virtualization vs containerization
+============================================================================================
+sudo fdisk /dev/xvdf
+sudo mkfs.ext4 /dev/xvdf3
+mount -t ext4 /dev/xvdf2 /Data1
+umount -l /dev/xvdf2
+lsblk
+
+create empty file
+dd if=/dev/zero of=emptyFile bs=536870912 count=8
+disk usages
+df(disk free) -h
+============================================================================================
+Process management
+ps -elf | awk '$8 < 0 { print }' | head -5
+root@ip-172-31-17-216:/# vmstat
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0      0 184784 114928 481756    0    0    12    28   26   58  0  0 100  0  0
+netstat -taupen | grep LIST

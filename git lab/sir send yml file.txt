@@ -1,0 +1,36 @@
+stages:
+  - deploy-staging
+  
+DeployStaging:
+  stage: deploy-staging
+  tags : 
+    - chatapp-backend
+  script:
+  - echo "$USER"
+  - pwd
+  - sshpass -V
+  - sshpass -p $staging_password  scp -o StrictHostKeyChecking=no -r ./* node-user@$STAGING_IP:~/chatapp-online-backend/
+  only:
+  - master
+  when: manual
+  
+InstallPackages:
+  stage: deploy-staging
+  tags : 
+    - chatapp-backend
+  script:
+  - sshpass -p $staging_password ssh -tt node-user@$STAGING_IP <<-EOF sshpass -p $staging_password sudo npm --prefix /home/node-user/chatapp-online-backend/ install /home/node-user/chatapp-online-backend/
+  only:
+  - master
+  when: manual
+  
+RestartPM2:
+  stage: deploy-staging
+  tags : 
+    - chatapp-backend
+  script:
+  - sshpass -p $staging_password ssh -tt node-user@$STAGING_IP <<-EOF sshpass -p $staging_password sudo pm2 restart /home/node-user/chatapp-online-backend/server.js --update-env 
+  only:
+  - master
+  when: manual
+  

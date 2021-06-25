@@ -1,0 +1,29 @@
+kops create help
+  
+# check how to create cluster
+kops create cluster --help | less
+
+#check the aws cli is and s3 bucket
+aws s3 ls
+aws configure
+
+# instance info
+aws ec2 describe-instances
+
+# export veriable in linux
+export KOPS_STATE_STORE=s3://kopsstore
+
+# find cluster in kops
+kops get cluster
+
+# edit the cluster 
+kops edit cluster --name kopsstore.k8s.local
+
+#kops validate command / check command
+kops validate cluster --name kopsstore.k8s.local
+
+#log in to master and worker node
+ubuntu@ip-10-0-0-73:~/.ssh$ ssh admin@3.135.220.131
+
+# see kube ctl version
+kubectl version --short

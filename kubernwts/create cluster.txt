@@ -1,0 +1,22 @@
+# create s3 bucket
+aws s3 mb s3://clusters.mykopszone.vpc
+
+# export variable s3 bucket
+export KOPS_STATE_STORE=s3://clusters.mykopszone.vpc
+
+#try diff
+kops create cluster \
+--state=${KOPS_STATE_STORE} \
+--node-count=2 \
+--master-size=t2.medium \
+--node-size=t2.small \
+--zones=us-east-2a \
+--name=${KOPS_CLUSTER_NAME} \
+--master-count 1
+
+# cofigure cluster / update cluster
+kops update cluster --name mycluster.k8s.mykopszone.local --yes --admin
+
+# delete cluster
+
+kops delete cluster --name mycluster.k8s.mykopszone.local --yes
